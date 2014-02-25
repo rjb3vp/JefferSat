@@ -1,12 +1,10 @@
 package jeffer.sat;
 
-import ioio.lib.api.DigitalOutput;
 import ioio.lib.api.exception.ConnectionLostException;
 import ioio.lib.util.BaseIOIOLooper;
 import ioio.lib.util.IOIOLooper;
 import ioio.lib.util.android.IOIOActivity;
 import android.os.Bundle;
-import android.widget.ToggleButton;
 
 /**
  * This is the main activity of the HelloIOIO example application.
@@ -16,7 +14,7 @@ import android.widget.ToggleButton;
  * the {@link IOIOActivity} class. For a more advanced use case, see the
  * HelloIOIOPower example.
  */
-public class MainActivity extends IOIOActivity {
+public class JefferSatActivity extends IOIOActivity {
 
 	/**
 	 * Called when the activity is first created. Here we normally initialize
@@ -25,7 +23,7 @@ public class MainActivity extends IOIOActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_jeffersat);
 	}
 
 	/**
@@ -36,9 +34,6 @@ public class MainActivity extends IOIOActivity {
 	 * be called repetitively until the IOIO gets disconnected.
 	 */
 	class Looper extends BaseIOIOLooper {
-		/** The on-board LED. */
-		private DigitalOutput led_;
-		private boolean flag = false;
 
 		/**
 		 * Called every time a connection with IOIO has been established.
@@ -51,7 +46,7 @@ public class MainActivity extends IOIOActivity {
 		 */
 		@Override
 		protected void setup() throws ConnectionLostException {
-			led_ = ioio_.openDigitalOutput(0, true);
+			
 		}
 
 		/**
@@ -64,18 +59,12 @@ public class MainActivity extends IOIOActivity {
 		 */
 		@Override
 		public void loop() throws ConnectionLostException {
-
-			if (flag) {
-				led_.write(true);
-				flag = false;
-			}
-			else {
-				led_.write(false);
-				flag = true;
-			}
 			
+		}
+		
+		public void wait(int ms) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(ms);
 			} 
 			catch (InterruptedException e) {
 			}
